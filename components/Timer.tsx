@@ -19,6 +19,15 @@ const Timer = () => {
     return () => clearInterval(interval)
   }, [isActive, seconds])
 
+  const toggleTimer = () => {
+    setIsActive(!isActive)
+  }
+
+  const resetTimer = () => {
+    setIsActive(false)
+    setSeconds(1500)
+  }
+
   return (
     <View style={styles.container}>
       <Text>Pomo Timer</Text>
