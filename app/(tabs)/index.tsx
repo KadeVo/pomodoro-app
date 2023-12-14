@@ -2,13 +2,11 @@ import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import Timer from '../../components/Timer'
 
-const HomeScreen = ({ navigation }) => {
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Test App</Text>
-
       <Timer navigation={navigation} />
-
       <TouchableOpacity
         style={styles.button}
         onPress={() => navigation.navigate('Details')}
