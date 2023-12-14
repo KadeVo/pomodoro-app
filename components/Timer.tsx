@@ -28,9 +28,26 @@ const Timer = () => {
     setSeconds(1500)
   }
 
+  const formatTime = (timeInSeconds) => {
+    const minutes = Math.floor(timeInSeconds / 60)
+    const seconds = timeInSeconds % 60
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(
+      2,
+      '0'
+    )}`
+  }
+
   return (
     <View style={styles.container}>
-      <Text>Pomo Timer</Text>
+      <Text style={styles.timer}>{formatTime(seconds)}</Text>
+      <View>
+        <TouchableOpacity onPress={toggleTimer}>
+          <Text>{isActive ? 'Pause' : 'Start'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={resetTimer}>
+          <Text>Reset</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
