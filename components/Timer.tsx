@@ -34,6 +34,7 @@ const Timer = () => {
   const toggleTimer = () => {
     if (!isActive) {
       setIsActive(true)
+      setIsPaused(false)
     } else {
       setIsActive(false)
       setIsPaused(true)
