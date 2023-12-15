@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timer: {
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
 })
 
 export default Timer
