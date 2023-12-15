@@ -36,15 +36,14 @@ const Timer = () => {
       '0'
     )}`
   }
-
   return (
     <View style={styles.container}>
       <Text style={styles.timer}>{formatTime(seconds)}</Text>
-      <View>
-        <TouchableOpacity onPress={toggleTimer}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={toggleTimer}>
           <Text>{isActive ? 'Pause' : 'Start'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={resetTimer}>
+        <TouchableOpacity style={styles.button} onPress={resetTimer}>
           <Text>Reset</Text>
         </TouchableOpacity>
       </View>
@@ -61,6 +60,15 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 10,
+    marginHorizontal: 10,
+    borderRadius: 5,
+  },
 })
-
 export default Timer
