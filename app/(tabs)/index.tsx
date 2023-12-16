@@ -9,7 +9,7 @@ export default function HomeScreen() {
         This is a work in progress to teach myself React Native.
       </Text>
 
-      <Link href="two">
+      <Link href="/two">
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Go to the Timer</Text>
         </TouchableOpacity>
