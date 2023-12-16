@@ -1,11 +1,19 @@
-import { useEffect, useState } from 'react'
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
+import { useState, useEffect } from 'react'
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native'
 
 const Timer = () => {
   const [studyTime, setStudyTime] = useState(1500)
   const [pausedTime, setPausedTime] = useState(0)
   const [isActive, setIsActive] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
+  const [customStudyDuration, setCustomStudyDuration] = useState(1500)
+  const [isCustomizing, setIsCustomizing] = useState(false)
 
   useEffect(() => {
     let studyInterval: NodeJS.Timeout
@@ -31,8 +39,20 @@ const Timer = () => {
     }
   }, [isActive, isPaused, studyTime])
 
+  const toggleCustomization = () => {
+    setIsCustomizing(!isCustomizing)
+  }
+
+  const applyCustomStudyDuration = () => {
+    setStudyTime(customStudyDuration)
+    setIsCustomizing(false)
+  }
+
   const toggleTimer = () => {
-    if (!isActive) {
+    if (isCustomizing) {
+      setIsCustomizing(false)
+    } else if (!isActive) {
+      setStudyTime(customStudyDuration)
       setIsActive(true)
       setIsPaused(false)
     } else {
@@ -60,23 +80,53 @@ const Timer = () => {
   return (
     <View style={styles.container}>
       <View style={styles.timerContainer}>
-        <Text style={styles.label}>Study Time:</Text>
-        <Text style={styles.timer}>{formatTime(studyTime)}</Text>
+        {isCustomizing ? (
+          <View>
+            <Text style={styles.label}>Custom Study Duration:</Text>
+            <Text>Please Enter in Seconds</Text>
+            <TextInput
+              style={styles.input}
+              keyboardType="numeric"
+              placeholder="Enter duration in seconds"
+              value={String(customStudyDuration)}
+              onChangeText={(text: string) =>
+                setCustomStudyDuration(parseInt(text) || 0)
+              }
+            />
+            <TouchableOpacity
+              style={styles.button}
+              onPress={applyCustomStudyDuration}
+            >
+              <Text>Apply</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <>
+            <Text style={styles.label}>Study Time:</Text>
+            <Text style={styles.timer}>{formatTime(studyTime)}</Text>
+          </>
+        )}
       </View>
 
-      <View style={styles.timerContainer}>
-        <Text style={styles.label}>Paused Time:</Text>
-        <Text style={styles.timer}>{formatTime(pausedTime)}</Text>
-      </View>
+      {!isCustomizing && (
+        <View style={styles.timerContainer}>
+          <Text style={styles.label}>Paused Time:</Text>
+          <Text style={styles.timer}>{formatTime(pausedTime)}</Text>
+        </View>
+      )}
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleTimer}>
-          <Text>{isActive ? 'Pause' : 'Start'}</Text>
+          <Text>{isActive || isCustomizing ? 'Pause' : 'Start'}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={resetTimer}>
           <Text>Reset</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity style={styles.button} onPress={toggleCustomization}>
+        <Text>{isCustomizing ? 'Cancel' : 'Adjust Timer'}</Text>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -107,6 +157,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     borderRadius: 5,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    paddingLeft: 10,
   },
 })
 
