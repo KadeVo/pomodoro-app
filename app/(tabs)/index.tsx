@@ -1,18 +1,17 @@
-import React from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native'
 import Timer from '../../components/Timer'
+import { Link } from 'expo-router'
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Test App</Text>
-      <Timer navigation={navigation} />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('Details')}
-      >
-        <Text style={styles.buttonText}>Go to Details Screen</Text>
-      </TouchableOpacity>
+      <Timer />
+      <Link href="two">
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Go to Tab Two Screen</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   )
 }
