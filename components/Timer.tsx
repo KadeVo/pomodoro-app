@@ -63,12 +63,12 @@ const Timer = () => {
         <Text style={styles.label}>Study Time:</Text>
         <Text style={styles.timer}>{formatTime(studyTime)}</Text>
       </View>
-      {isPaused && (
-        <View style={styles.timerContainer}>
-          <Text style={styles.label}>Paused Time:</Text>
-          <Text style={styles.timer}>{formatTime(pausedTime)}</Text>
-        </View>
-      )}
+
+      <View style={styles.timerContainer}>
+        <Text style={styles.label}>Paused Time:</Text>
+        <Text style={styles.timer}>{formatTime(pausedTime)}</Text>
+      </View>
+
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={toggleTimer}>
           <Text>{isActive ? 'Pause' : 'Start'}</Text>
