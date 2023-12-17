@@ -6,25 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native'
-// import Sound from 'react-native-sound'
-
-// const alarmSound = new Sound('alarm.mp3', Sound.MAIN_BUNDLE, (error) => {
-//   if (error) {
-//     console.error('Failed to load sound', error)
-//   }
-// })
-
-// const playAlarmSound = () => {
-//   if (alarmSound) {
-//     alarmSound.play((success) => {
-//       if (success) {
-//         console.log('Sound played successfully')
-//       } else {
-//         console.error('Failed to play sound')
-//       }
-//     })
-//   }
-// }
 
 const Timer = () => {
   const [studyTime, setStudyTime] = useState(1500)
@@ -33,6 +14,8 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false)
   const [customStudyDuration, setCustomStudyDuration] = useState(1500)
   const [isCustomizing, setIsCustomizing] = useState(false)
+
+  const [isResumed, setIsResumed] = useState(false)
 
   useEffect(() => {
     let studyInterval: NodeJS.Timeout
@@ -44,7 +27,6 @@ const Timer = () => {
       }, 1000)
     } else if (studyTime === 0) {
       setIsActive(false)
-      // playAlarmSound()
     }
 
     if (isPaused) {
@@ -72,20 +54,27 @@ const Timer = () => {
     if (isCustomizing) {
       setIsCustomizing(false)
     } else if (!isActive) {
-      setStudyTime(customStudyDuration)
-      setIsActive(true)
-      setIsPaused(false)
+      if (isResumed) {
+        setIsActive(true)
+        setIsPaused(false)
+      } else {
+        setStudyTime(customStudyDuration)
+        setIsActive(true)
+        setIsPaused(false)
+      }
     } else {
       setIsActive(false)
       setIsPaused(true)
+      setIsResumed(true)
     }
   }
 
-  const resetTimer = () => {
+  const resetTimer = async () => {
     setIsActive(false)
     setIsPaused(false)
     setStudyTime(1500)
     setPausedTime(0)
+    setIsResumed(false)
   }
 
   const formatTime = (timeInSeconds: number) => {
