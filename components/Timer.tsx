@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native'
+import { Audio } from 'expo-av'
 
 const Timer = () => {
   const [studyTime, setStudyTime] = useState(1500)
@@ -14,32 +15,62 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false)
   const [customStudyDuration, setCustomStudyDuration] = useState(1500)
   const [isCustomizing, setIsCustomizing] = useState(false)
-
   const [isResumed, setIsResumed] = useState(false)
+  const [sound, setSound] = useState<Audio.Sound | undefined>(undefined)
+
+  const stopSound = async () => {
+    try {
+      if (sound) {
+        await sound.stopAsync()
+        await sound.unloadAsync()
+      }
+    } catch (error) {
+      console.error('Error stopping sound: ', error)
+    }
+  }
 
   useEffect(() => {
     let studyInterval: NodeJS.Timeout
     let pauseInterval: NodeJS.Timeout
 
+    const playStudySound = async () => {
+      try {
+        const { sound } = await Audio.Sound.createAsync(
+          require('../assets/audio/mixkit-classic-winner-alarm-1997.wav')
+        )
+        setSound(sound)
+        await sound.playAsync()
+      } catch (error) {
+        console.error('Error playing sound: ', error)
+      }
+    }
+
     if (isActive && studyTime > 0) {
       studyInterval = setInterval(() => {
         setStudyTime((prevStudyTime) => prevStudyTime - 1)
+        stopSound()
       }, 1000)
     } else if (studyTime === 0) {
       setIsActive(false)
+      playStudySound()
     }
 
     if (isPaused) {
       pauseInterval = setInterval(() => {
         setPausedTime((prevPausedTime) => prevPausedTime + 1)
       }, 1000)
+      stopSound()
     }
 
     return () => {
       clearInterval(studyInterval)
       clearInterval(pauseInterval)
+
+      if (sound) {
+        sound.stopAsync()
+      }
     }
-  }, [isActive, isPaused, studyTime])
+  }, [isActive, isPaused, studyTime, sound])
 
   const toggleCustomization = () => {
     setIsCustomizing(!isCustomizing)
@@ -50,7 +81,7 @@ const Timer = () => {
     setIsCustomizing(false)
   }
 
-  const toggleTimer = () => {
+  const toggleTimer = async () => {
     if (isCustomizing) {
       setIsCustomizing(false)
     } else if (!isActive) {
@@ -75,6 +106,7 @@ const Timer = () => {
     setStudyTime(1500)
     setPausedTime(0)
     setIsResumed(false)
+    stopSound()
   }
 
   const formatTime = (timeInSeconds: number) => {
