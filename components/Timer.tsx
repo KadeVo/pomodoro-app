@@ -16,7 +16,7 @@ const Timer = () => {
   const [customStudyDuration, setCustomStudyDuration] = useState(1500)
   const [isCustomizing, setIsCustomizing] = useState(false)
   const [isResumed, setIsResumed] = useState(false)
-  const [sound, setSound] = useState(false)
+  const [sound, setSound] = useState<Audio.Sound | undefined>(undefined)
 
   useEffect(() => {
     let studyInterval: NodeJS.Timeout
@@ -52,7 +52,7 @@ const Timer = () => {
     setIsCustomizing(false)
   }
 
-  const toggleTimer = () => {
+  const toggleTimer = async () => {
     if (isCustomizing) {
       setIsCustomizing(false)
     } else if (!isActive) {
@@ -68,7 +68,10 @@ const Timer = () => {
       setIsActive(false)
       setIsPaused(true)
       setIsResumed(true)
-      setSound(false)
+
+      if (sound) {
+        await sound.stopAsync()
+      }
     }
   }
 
@@ -78,7 +81,10 @@ const Timer = () => {
     setStudyTime(1500)
     setPausedTime(0)
     setIsResumed(false)
-    setSound(false)
+
+    if (sound) {
+      await sound.stopAsync()
+    }
   }
 
   const formatTime = (timeInSeconds: number) => {
@@ -95,13 +101,12 @@ const Timer = () => {
       const { sound } = await Audio.Sound.createAsync(
         require('../assets/audio/mixkit-classic-winner-alarm-1997.wav')
       )
-      setSound(true)
+      setSound(sound)
       await sound.playAsync()
     } catch (error) {
       console.error('Error playing sound: ', error)
     }
   }
-
   return (
     <View style={styles.container}>
       <View style={styles.timerContainer}>
