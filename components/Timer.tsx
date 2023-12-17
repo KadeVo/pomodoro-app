@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native'
+import { Audio } from 'expo-av'
 
 const Timer = () => {
   const [studyTime, setStudyTime] = useState(1500)
@@ -14,8 +15,8 @@ const Timer = () => {
   const [isPaused, setIsPaused] = useState(false)
   const [customStudyDuration, setCustomStudyDuration] = useState(1500)
   const [isCustomizing, setIsCustomizing] = useState(false)
-
   const [isResumed, setIsResumed] = useState(false)
+  const [sound, setSound] = useState(false)
 
   useEffect(() => {
     let studyInterval: NodeJS.Timeout
@@ -27,6 +28,7 @@ const Timer = () => {
       }, 1000)
     } else if (studyTime === 0) {
       setIsActive(false)
+      playSound()
     }
 
     if (isPaused) {
@@ -66,6 +68,7 @@ const Timer = () => {
       setIsActive(false)
       setIsPaused(true)
       setIsResumed(true)
+      setSound(false)
     }
   }
 
@@ -75,6 +78,7 @@ const Timer = () => {
     setStudyTime(1500)
     setPausedTime(0)
     setIsResumed(false)
+    setSound(false)
   }
 
   const formatTime = (timeInSeconds: number) => {
@@ -84,6 +88,18 @@ const Timer = () => {
       2,
       '0'
     )}`
+  }
+
+  const playSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/audio/mixkit-classic-winner-alarm-1997.wav')
+      )
+      setSound(true)
+      await sound.playAsync()
+    } catch (error) {
+      console.error('Error playing sound: ', error)
+    }
   }
 
   return (
