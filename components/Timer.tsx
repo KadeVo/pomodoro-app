@@ -48,11 +48,9 @@ const Timer = () => {
     if (isActive && studyTime > 0) {
       studyInterval = setInterval(() => {
         setStudyTime((prevStudyTime) => prevStudyTime - 1)
-        stopSound()
       }, 1000)
     } else if (studyTime === 0) {
       setIsActive(false)
-      playSound()
     }
 
     if (isPaused) {
@@ -60,6 +58,10 @@ const Timer = () => {
         setPausedTime((prevPausedTime) => prevPausedTime + 1)
         stopSound()
       }, 1000)
+    }
+    if (studyTime <= 0 && isActive) {
+      setIsActive(false)
+      playSound()
     }
 
     return () => {
