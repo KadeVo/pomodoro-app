@@ -122,9 +122,13 @@ const Timer = () => {
     <View style={styles.container}>
       <View style={styles.timerContainer}>
         {isCustomizing ? (
-          <View>
-            <Text style={styles.label}>Custom Study Duration:</Text>
-            <Text>Please Enter in Seconds</Text>
+          <View style={styles.customizationContainer}>
+            <Text style={styles.customizationLabel}>
+              Custom Study Duration:
+            </Text>
+            <Text style={styles.customizationDescription}>
+              Please Enter in Seconds
+            </Text>
             <TextInput
               style={styles.input}
               keyboardType="numeric"
@@ -135,10 +139,10 @@ const Timer = () => {
               }
             />
             <TouchableOpacity
-              style={styles.button}
+              style={styles.applyButton}
               onPress={applyCustomStudyDuration}
             >
-              <Text>Apply</Text>
+              <Text style={styles.applyButtonText}>Apply</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -157,16 +161,23 @@ const Timer = () => {
       )}
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={toggleTimer}>
-          <Text>{isActive || isCustomizing ? 'Pause' : 'Start'}</Text>
+        <TouchableOpacity style={styles.timerButton} onPress={toggleTimer}>
+          <Text style={styles.timerButtonText}>
+            {isActive || isCustomizing ? 'Pause' : 'Start'}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={resetTimer}>
-          <Text>Reset</Text>
+        <TouchableOpacity style={styles.timerButton} onPress={resetTimer}>
+          <Text style={styles.timerButtonText}>Reset</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={toggleCustomization}>
-        <Text>{isCustomizing ? 'Cancel' : 'Adjust Timer'}</Text>
+      <TouchableOpacity
+        style={styles.customizationButton}
+        onPress={toggleCustomization}
+      >
+        <Text style={styles.customizationButtonText}>
+          {isCustomizing ? 'Cancel' : 'Adjust Timer'}
+        </Text>
       </TouchableOpacity>
     </View>
   )
@@ -174,10 +185,15 @@ const Timer = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   timerContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  customizationContainer: {
     alignItems: 'center',
   },
   label: {
@@ -185,26 +201,66 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
+  customizationLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+  customizationDescription: {
+    fontSize: 14,
+    marginBottom: 10,
+    color: '#888',
+  },
   timer: {
-    fontSize: 40,
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#007BFF',
+  },
+  input: {
+    height: 40,
+    width: 200,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  applyButton: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  applyButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: 'bold',
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginTop: 20,
+    justifyContent: 'space-around',
+    width: '100%',
+    marginBottom: 20,
   },
-  button: {
-    backgroundColor: 'lightblue',
+  timerButton: {
+    backgroundColor: '#007BFF',
+    padding: 15,
+    borderRadius: 10,
+    width: 100,
+    alignItems: 'center',
+  },
+  timerButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  customizationButton: {
+    backgroundColor: '#28A745',
     padding: 10,
-    marginHorizontal: 10,
     borderRadius: 5,
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingLeft: 10,
+  customizationButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 })
 
