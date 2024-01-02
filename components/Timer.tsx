@@ -188,6 +188,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: 'linear-gradient(to bottom, #f04747, #e91e63)',
+  },
+  heading: {
+    fontSize: 32,
+    fontFamily: 'Poppins',
+    fontWeight: 'bold',
+    color: '#f2f2f2',
   },
   timerContainer: {
     alignItems: 'center',
@@ -212,9 +220,11 @@ const styles = StyleSheet.create({
     color: '#888',
   },
   timer: {
-    fontSize: 36,
+    fontSize: 64,
+    fontFamily: 'Helvetica',
     fontWeight: 'bold',
-    color: '#007BFF',
+    color: '#000',
+    textShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
   },
   input: {
     height: 40,
@@ -251,6 +261,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
   customizationButton: {
     backgroundColor: '#28A745',
@@ -261,6 +272,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
   },
 })
 
