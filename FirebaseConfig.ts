@@ -1,17 +1,18 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from 'firebase/auth'
+import * as dotenv from 'dotenv'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyBzIykkhxEU_7Mb94-ciI-T7zr304wr4d0',
-  authDomain: 'pomodoro-nativeapp.firebaseapp.com',
-  projectId: 'pomodoro-nativeapp',
-  storageBucket: 'pomodoro-nativeapp.appspot.com',
-  messagingSenderId: '821059457728',
-  appId: '1:821059457728:web:3fc398c9578fdc10379325',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 }
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
+export const firebase_app = initializeApp(firebaseConfig)
+export const firebase_auth = getAuth(firebase_app)
