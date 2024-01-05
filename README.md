@@ -1,6 +1,10 @@
 <h1>Hello!</h1>
 
 This project is primarily to help me understand React Native and create a tool that will be useful towards peoples future study. <br>
+  <h3>Fun fact:</h3>
+
+  I have used this application during my study period for the AZ-900 exam which helped me stay focused and help me pass the exam within a week of study.
+
 
 <h2>What the app currently has:</h2>
 
@@ -23,7 +27,4 @@ This project is primarily to help me understand React Native and create a tool t
   </ul>
 </li
 
-  <h2>Fun fact</h2>
-  <li>
-  I have used this application during my study period for the AZ-900 exam which helped me stay focused and help me pass the exam within a week of study.
-</li>
+
