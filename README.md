@@ -8,23 +8,23 @@ This project is primarily to help me understand React Native and create a tool t
 
 <h2>What the app currently has:</h2>
 
-<li>
-  <ul>Pomodoro Timer: We're talking 25-minute laser focus sprints, fueled by the magic of the Pomodoro Technique. Short breaks? Longer pauses? My app trakcs your pause time and you can adjust your study period.
-  </ul>
-  <ul>Firebase backend</ul>
-</li>
+<ul>
+  <li>Pomodoro Timer: We're talking 25-minute laser focus sprints, fueled by the magic of the Pomodoro Technique. Short breaks? Longer pauses? My app trakcs your pause time and you can adjust your study period.
+  </li>
+  <li>Firebase backend</li>
+</ul>
 
 <h2>What I intend to add:</h2>
-<li>
-  <ul>
+<ul>
+  <li>
     Notification system to remind you to study
-  </ul>
-    <ul>
+  </li>
+    <li>
     Track record of all your study sessions
-  </ul>
-  <ul>
+  </li>
+  <li>
     Total amount of time studied and total amount you have paused
-  </ul>
-</li
+  </li>
+</ul>
 
 
