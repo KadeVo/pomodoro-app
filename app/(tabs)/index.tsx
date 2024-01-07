@@ -14,6 +14,11 @@ export default function HomeScreen() {
           <Text style={styles.buttonText}>Go to the Timer</Text>
         </TouchableOpacity>
       </Link>
+      <Link href="/login">
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
   )
 }
