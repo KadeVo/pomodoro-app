@@ -25,5 +25,8 @@ describe('Timer component', () => {
 
     const applyButton = getByText('Apply')
     fireEvent.press(applyButton)
+
+    const studyTime = getByText('1:00')
+    expect(studyTime).toBeTruthy()
   })
 })
