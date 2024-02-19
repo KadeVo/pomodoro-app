@@ -107,6 +107,7 @@ const Timer = () => {
     setPausedTime(0)
     setIsResumed(false)
     stopSound()
+    setCustomStudyDuration(1500)
   }
 
   const formatTime = (timeInSeconds: number) => {
